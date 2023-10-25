@@ -1,6 +1,10 @@
 MIT License
 
+<<<<<<< HEAD
 Copyright (c) 2023 Badger-PC
+=======
+Copyright (c) 2023 Mariusz Borczuk
+>>>>>>> be523721ff7c320e9a1e37669129c0cee1857c8a
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
