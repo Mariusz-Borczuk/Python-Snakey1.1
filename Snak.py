@@ -15,7 +15,7 @@ Snake_Color = "#800080" # Fioletowy
 Food_Color = "#FF0000" # Czerwony
 Background_Color = "#000000" # Czarny
 
-class Snanky:
+class Snankey:
     # Inicializacja wężyka
     def __init__(self):
         self.body_size = Body_Parts
@@ -76,24 +76,20 @@ def Next_Turn(snakey, Jedzonko):
     stomach = canvas.create_oval(x, y, x + Space_size, y + Space_size, fill=Snake_Color)
 
     snakey.squares.insert(0, stomach)
-    # Sprawdź, czy wąż zjadł jedzenie
-    if x == Jedzonko.coordinates[0] and y == Jedzonko.coordinates[1]:
+    if x == Jedzonko.coordinates[0] and y == Jedzonko.coordinates[1]:# Sprawdź, czy wąż zjadł jedzenie
         global wyniczek
         wyniczek += 1
         label.config(text="Wyniczek: {0}".format(wyniczek))
         canvas.delete("Jedzonko")
         Jedzonko = The_Food()
     else:
-        # Usuń ostatni element z węża
-        del snakey.coordinates[-1]
+        del snakey.coordinates[-1]# Usuń ostatni element z węża
         canvas.delete(snakey.squares[-1])
         del snakey.squares[-1]
-        # Sprawdź, czy wąż zjadł siebie
-    if Check_Collisions(snakey) == True:
+    if Check_Collisions(snakey) == True: # Sprawdź, czy wąż zjadł siebie
         Game_Over()
     else:
-        # Wywołaj tę funkcję ponownie po określonym czasie(Speed gry)
-        window.after(Speed, Next_Turn, snakey, Jedzonko)
+        window.after(Speed, Next_Turn, snakey, Jedzonko)# Wywołaj tę funkcję ponownie po określonym czasie(Speed gry)
 
 def Change_Direction( New_Direction ):
     global direction
@@ -109,41 +105,41 @@ def Change_Direction( New_Direction ):
 
 def Check_Collisions(snakey):
     x, y = snakey.coordinates[0]
-# Sprawdź, czy wąż uderzył w ścianę
-    if x < 0 or x >= Game_Width:
+    if x < 0 or x >= Game_Width: # Sprawdź, czy wąż uderzył w ścianę
         print("You hit the edge of the screen!")
         return True
     elif y < 0 or y >= Game_Height:
         print("You hit the edge of the screen!")
         return True
-    # Sprawdź, czy wąż zjadł siebie
-    for body_part in snakey.coordinates[1:]:
+    for body_part in snakey.coordinates[1:]: # Sprawdź, czy wąż zjadł siebie
         if x == body_part[0] and y == body_part[1]:
             print("You ate yourself!")
             return True
     return False       
         
 def Game_Over():
-    # Usuń wszystko z canvas
-    canvas.delete(tkinter.ALL)
+    canvas.delete(tkinter.ALL) # Usuń wszystko z canvas
     canvas.create_text(canvas.winfo_width() / 2, canvas.winfo_height() / 2,
                        font=("Orbitron", 80), text="Przegrana ;( ", fill="purple", tag="gameover")
 
 
 window = tkinter.Tk()
-window.title("Snanky")
+window.title("Snankey")
 window.resizable(False, False)
 
 wyniczek = 0
 direction = "Right"
+
 # Tworzenie etykiety wyniczek
 label = tkinter.Label(window, text="Wyniczek: {0}".format(wyniczek), font=("Orbitron", 30)) 
 label.pack()
+
 # Tworzenie canvas
 canvas = tkinter.Canvas(window, bg = Background_Color, height = Game_Height, width = Game_Width)
 canvas.pack()
 
 window.update()
+
 # Ustawienie okna na środku ekranu
 window_width = window.winfo_width()
 window_height = window.winfo_height()
@@ -159,16 +155,18 @@ window.bind("<Up>",lambda event: Change_Direction(("up")))
 window.bind("<Down>",lambda event: Change_Direction(("down")))
 window.bind("<Left>",lambda event: Change_Direction(("left")))
 window.bind("<Right>",lambda event: Change_Direction(("right")))
+
 #Powiązanie klawiszy WASD z funkcją Change_Direction
 window.bind("w",lambda event: Change_Direction(("up")))
 window.bind("a",lambda event: Change_Direction(("left")))
 window.bind("s",lambda event: Change_Direction(("down")))
 window.bind("d",lambda event: Change_Direction(("right")))
+
 #Powiązanie klawisza Esc z funkcją destroy
 window.bind("<Escape>", lambda event: window.destroy())
 
 # Stworzenie węża i jedzenia oraz rozpoczęcie gry 
-snake = Snanky()
+snake = Snankey()
 Jedzonko = The_Food()
 Next_Turn(snake, Jedzonko)
 # Uruchomienie okna
